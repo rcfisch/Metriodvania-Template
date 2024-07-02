@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwsglksr2wf1k"]
+
+[ext_resource type="Script" path="res://Scripts/WalkingMovement.gd" id="1_155hw"]
+[ext_resource type="Texture2D" uid="uid://b8w5l8drgsg8d" path="res://icon.png" id="2_lgkj7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ggpd"]
+size = Vector2(64, 146)
+
+[node name="BaseWalkingEnemy" type="CharacterBody2D"]
+script = ExtResource("1_155hw")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -73.5)
+scale = Vector2(0.5, 1.13281)
+texture = ExtResource("2_lgkj7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -74)
+shape = SubResource("RectangleShape2D_3ggpd")
