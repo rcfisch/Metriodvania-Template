@@ -10,14 +10,15 @@ size = Vector2(10, 21)
 
 [node name="Player" type="CharacterBody2D"]
 material = SubResource("ShaderMaterial_e131h")
+scale = Vector2(4, 4)
 script = ExtResource("1_libco")
 accel = 40.0
 air_accel = 15.0
 speed = 130.0
-max_fall_speed = 200.0
-jump_height = 70.0
+max_fall_speed = 300.0
+jump_height = 50.0
 jump_seconds_to_peak = 0.4
-jump_seconds_to_descent = 0.4
+jump_seconds_to_descent = 0.5
 variable_jump_gravity_multiplier = 3.0
 coyote_frames = 8.0
 air_friction = 8.0
