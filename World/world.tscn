@@ -39,8 +39,11 @@ layer_0/tile_data = PackedInt32Array(196606, 65537, 1, 131073, 65537, 1, 131074,
 accel = 160.0
 air_accel = 60.0
 speed = 520.0
-max_fall_speed = 1200.0
-jump_height = 200.0
+max_fall_speed = 880.0
+jump_height = 160.0
+jump_seconds_to_peak = 0.42
+jump_seconds_to_descent = 0.38
+variable_jump_gravity_multiplier = 2.0
 friction = 80
 air_friction = 32.0
 
