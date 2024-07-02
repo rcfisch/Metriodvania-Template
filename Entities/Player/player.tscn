@@ -11,6 +11,16 @@ size = Vector2(10, 21)
 [node name="Player" type="CharacterBody2D"]
 material = SubResource("ShaderMaterial_e131h")
 script = ExtResource("1_libco")
+accel = 40.0
+air_accel = 15.0
+speed = 130.0
+max_fall_speed = 200.0
+jump_height = 70.0
+jump_seconds_to_peak = 0.4
+jump_seconds_to_descent = 0.4
+variable_jump_gravity_multiplier = 3.0
+coyote_frames = 8.0
+air_friction = 8.0
 
 [node name="PlayerHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 5.5)

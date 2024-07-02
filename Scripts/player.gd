@@ -51,6 +51,7 @@ func _physics_process(delta):
 	if abs(velocity.x) < friction and direction == 0:
 		velocity.x = 0
 	move_and_slide()
+	print(direction)
 func accelerate():
 	if is_on_floor():
 		# Right

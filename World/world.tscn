@@ -1,3 +1,40 @@
-[gd_scene format=3 uid="uid://dbowblmgblrxo"]
+[gd_scene load_steps=6 format=3 uid="uid://dbowblmgblrxo"]
+
+[ext_resource type="PackedScene" uid="uid://s13k54c5atdq" path="res://World/red_bricks.tscn" id="1_hgmn6"]
+[ext_resource type="Texture2D" uid="uid://b85bxwdhuldi" path="res://Assets/red_brick.png" id="2_8w7cf"]
+[ext_resource type="PackedScene" uid="uid://daw4l80sscsb7" path="res://Entities/Player/player.tscn" id="2_84dbn"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ba6ms"]
+texture = ExtResource("2_8w7cf")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+
+[sub_resource type="TileSet" id="TileSet_cq23o"]
+tile_size = Vector2i(8, 8)
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_ba6ms")
 
 [node name="World" type="Node2D"]
+
+[node name="RedBricks" parent="." instance=ExtResource("1_hgmn6")]
+tile_set = SubResource("TileSet_cq23o")
+layer_0/tile_data = PackedInt32Array(196606, 65537, 1, 131073, 65537, 1, 131074, 65537, 1, 131075, 65537, 1, 131076, 65537, 1, 196605, 65537, 1, 196604, 65537, 1, 196603, 65537, 1, 262142, 65537, 1, 262141, 65537, 1, 262140, 65537, 1, 262139, 65537, 1, 196609, 65537, 1, 196610, 65537, 1, 196611, 65537, 1, 196612, 65537, 1, 65541, 65537, 1, 5, 65537, 1, 6, 65537, 1, 65542, 65537, 1, 131077, 65537, 1, 196613, 65537, 1, 196607, 1, 0, 131072, 1, 0, 262143, 1, 0, 196608, 1, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_84dbn")]
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
