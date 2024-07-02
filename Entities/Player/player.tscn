@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://daw4l80sscsb7"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_libco"]
+[ext_resource type="Texture2D" uid="uid://clptmp3cpkhri" path="res://Assets/Sprites/Player/Static/Template.png" id="1_lp7hn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e131h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fla5k"]
+size = Vector2(10, 21)
+
+[node name="Player" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_e131h")
+script = ExtResource("1_libco")
+
+[node name="PlayerHitbox" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 5.5)
+shape = SubResource("RectangleShape2D_fla5k")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_lp7hn")
