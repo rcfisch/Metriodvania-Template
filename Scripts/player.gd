@@ -31,6 +31,8 @@ var coyote_time : float
 @export var attack_time : int
 @export var attack_recoil : float
 @export var pogo_velocity : float
+
+@export var enemy_knockback : float
 var attack_direction = "right"
 var recoiled = false
 
@@ -116,8 +118,12 @@ func _physics_process(delta):
 	move_and_slide()
 	
 # Hurt Player
-	if $Hurtbox.has_overlapping_areas() and inv_timer == 0:
-		$Hurtbox.get_overlapping_areas().global_position()
+	if $Hurtbox.has_overlapping_areas():
+		for i in $Hurtbox.get_overlapping_areas():
+			if inv_timer == 0:
+				hurt(i.global_position)
+			
+		
 # Print
 	#print(get_gravity())
 func accelerate():
@@ -219,5 +225,8 @@ func debug_menu():
 	else:
 		get_tree().set_debug_collisions_hint(false)
 func hurt(enemy_pos):
+	var knockback = enemy_pos.direction_to(global_position) * enemy_knockback
+	
+	velocity = Vector2(knockback.x, -abs(knockback.y))
 	inv_timer = invicibility_frames
-	print($Hurtbox.get_overlapping_areas())
+	#print(knockback_dir * enemy_knockback)
