@@ -1,12 +1,15 @@
 extends Enemy
 
 @export var speed : float = 10
+@export var gravity : float = 1
 @export var is_patrolling : bool = true
 
 var dir : int = 1
 var dir_to_player : int = 1
 
 func _physics_process(delta):
+	if !is_on_floor():
+		velocity.y += 1
 	if alerted:
 		pass
 	elif is_on_floor() and is_patrolling:

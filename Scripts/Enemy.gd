@@ -10,7 +10,7 @@ func _ready():
 	gm.enemy_list.append(self)
 	
 func _physics_process(delta):
-	if abs(gm.player_pos - global_position) < alert_distance:
+	if abs(gm.player_pos.x - global_position.x) + abs(gm.player_pos.y - global_position.y) < alert_distance:
 		alert()
 	
 func alert(alert_others = true):
@@ -18,7 +18,8 @@ func alert(alert_others = true):
 	if (!alert_others):
 		return
 	for i in gm.enemy_list.size():
-		if abs(gm.enemy_list[i].global_position - global_position) < alert_distance:
+		
+		if abs(gm.enemy_list[i].global_position.x - global_position.x) + abs(gm.enemy_list[i].global_position.y - global_position.y) < alert_distance:
 			gm.enemy_list[i].get_script().alert(false)
 			
 func destory():

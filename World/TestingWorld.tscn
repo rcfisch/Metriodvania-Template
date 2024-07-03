@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bk1flnnoeg7fm"]
+[gd_scene load_steps=5 format=3 uid="uid://bk1flnnoeg7fm"]
 
 [ext_resource type="Texture2D" uid="uid://b8w5l8drgsg8d" path="res://icon.png" id="1_c66kv"]
 [ext_resource type="PackedScene" uid="uid://dxfp2e21vqmlv" path="res://Entities/Enemy/WalkingEnemy.tscn" id="2_fhsqc"]
+[ext_resource type="Script" path="res://Scripts/WalkingEnemy.gd" id="3_iby4i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fchlu"]
 size = Vector2(481, 92)
@@ -22,4 +23,8 @@ position = Vector2(0.5, 46)
 shape = SubResource("RectangleShape2D_fchlu")
 
 [node name="BaseEnemy" parent="." instance=ExtResource("2_fhsqc")]
-position = Vector2(0, -51)
+position = Vector2(4, -48)
+script = ExtResource("3_iby4i")
+speed = 10.0
+gravity = 1.0
+is_patrolling = true

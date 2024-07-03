@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dbowblmgblrxo"]
 
-[ext_resource type="PackedScene" uid="uid://s13k54c5atdq" path="res://World/red_bricks.tscn" id="1_hgmn6"]
+[ext_resource type="PackedScene" path="res://World/red_bricks.tscn" id="1_hgmn6"]
 [ext_resource type="PackedScene" uid="uid://daw4l80sscsb7" path="res://Entities/Player/player.tscn" id="2_84dbn"]
 
 [node name="World" type="Node2D"]
