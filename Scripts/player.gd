@@ -1,10 +1,12 @@
 extends CharacterBody2D
 # Acceleration and speed cap
+@export_category("Speeds")
 @export var accel : float
 @export var air_accel : float
 @export var speed : float
 @export var max_fall_speed : float
 # Jump
+@export_category("Jump")
 @export var jump_height : float
 @export var jump_seconds_to_peak : float
 @export var jump_seconds_to_descent : float
@@ -19,10 +21,12 @@ extends CharacterBody2D
 var coyote_time : float
 
 # Friction
+@export_category("Friction")
 @export var friction = 20
 @export var air_friction : float
 
 # Attack
+@export_category("Attack")
 @export var attack_time : int
 @export var attack_recoil : float
 var attack_direction = "right"
