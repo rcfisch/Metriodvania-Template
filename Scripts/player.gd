@@ -29,6 +29,7 @@ var coyote_time : float
 @export_category("Attack")
 @export var attack_time : int
 @export var attack_recoil : float
+@export var pogo_velocity : float
 var attack_direction = "right"
 var recoiled = false
 # Debug
@@ -108,6 +109,8 @@ func _physics_process(delta):
 	if abs(velocity.x) < friction and direction == 0:
 		velocity.x = 0
 	move_and_slide()
+# Print
+	print(get_gravity())
 func accelerate():
 	if is_on_floor():
 		# Right
@@ -128,11 +131,11 @@ func get_gravity() -> float:
 # Return correct gravity for the situation
 	if velocity.y < 0:
 		if is_jumping == true and Input.is_action_pressed("jump"):
-			return jump_gravity  
-		else:
+			return jump_gravity
+		elif !recoiled:
 			return jump_gravity * variable_jump_gravity_multiplier
-	elif Input.is_action_pressed("down"):
-		return fastfall_gravity
+		else:
+			return jump_gravity
 	else: 
 		return fall_gravity
 func apply_friction():
@@ -183,7 +186,7 @@ func apply_attack_recoil():
 	if attack_direction == "up":
 		velocity.y += attack_recoil
 	if attack_direction == "down":
-		velocity.y = -attack_recoil * 1.5
+		velocity.y = -pogo_velocity
 	if attack_direction == "left":
 		velocity.x += attack_recoil
 	if attack_direction == "right":
