@@ -10,7 +10,7 @@
 size = Vector2(10, 21)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ohrhg"]
-size = Vector2(15, 15)
+size = Vector2(26, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gpmb8"]
 atlas = ExtResource("3_5fqoh")
@@ -61,7 +61,7 @@ material = SubResource("ShaderMaterial_e131h")
 scale = Vector2(4, 4)
 script = ExtResource("1_libco")
 accel = 64.0
-air_accel = 28.0
+air_accel = 32.0
 speed = 520.0
 max_fall_speed = 880.0
 jump_height = 160.0
@@ -71,7 +71,7 @@ variable_jump_gravity_multiplier = 2.0
 coyote_frames = 8.0
 friction = 80
 air_friction = 32.0
-attack_time = 5
+attack_time = 4
 attack_recoil = 520.0
 
 [node name="PlayerHitbox" type="CollisionShape2D" parent="."]
@@ -83,7 +83,7 @@ texture_filter = 1
 texture = ExtResource("1_lp7hn")
 
 [node name="AttackArea" type="Area2D" parent="."]
-position = Vector2(0, -12.5)
+position = Vector2(8, 5)
 collision_layer = 2
 collision_mask = 2
 

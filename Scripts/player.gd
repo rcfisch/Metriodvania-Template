@@ -150,39 +150,32 @@ func jump():
 		is_jumping = true
 		coyote_time = 0
 func attack():
+	$AttackArea/AttackSprite.position.x = 10
 	$AttackArea/AttackSprite.frame = 0
 	$AttackArea/AttackSprite.play("X")
 	attack_timer = 20
-	if facing == "left":
-		$AttackArea/AttackSprite.flip_h = true
-	if facing == "right":
-		$AttackArea/AttackSprite.flip_h = false
 	if Input.is_action_pressed("up") and !Input.is_action_pressed("down"):
 		attack_direction = "up"
 		$AttackArea.position.x = 0
-		$AttackArea.position.y = -12.5
-		if facing == "left":
-			$AttackArea/AttackSprite.rotation_degrees = 90
-		else:
-			$AttackArea/AttackSprite.rotation_degrees = 270
+		$AttackArea.position.y = -7
+		$AttackArea.rotation_degrees = 270
 	elif Input.is_action_pressed("down") and !is_on_floor() and !Input.is_action_pressed("up"):
 		attack_direction = "down"
 		$AttackArea.position.x = 0
-		$AttackArea.position.y = 23.5
-		if facing == "right":
-			$AttackArea/AttackSprite.rotation_degrees = 90
-		else:
-			$AttackArea/AttackSprite.rotation_degrees = 270
+		$AttackArea.position.y = 17
+		$AttackArea.rotation_degrees = 90
 	elif facing == "right":
 		attack_direction = "right"
-		$AttackArea.position.x = 12.5
-		$AttackArea.position.y = 5.5
-		$AttackArea/AttackSprite.rotation_degrees = 0
+		$AttackArea.position.x = 8
+		$AttackArea.position.y = 5
+		$AttackArea.rotation_degrees = 0
 	elif facing == "left":
 		attack_direction = "left"
-		$AttackArea.position.x = -12.5
-		$AttackArea.position.y = 5.5
-		$AttackArea/AttackSprite.rotation_degrees = 0
+		$AttackArea/AttackSprite.position.y = 0
+		$AttackArea/AttackSprite.position.x = 5
+		$AttackArea.position.x = -8
+		$AttackArea.position.y = 5
+		$AttackArea.rotation_degrees = 180
 func apply_attack_recoil():
 	if attack_direction == "up":
 		velocity.y += attack_recoil
