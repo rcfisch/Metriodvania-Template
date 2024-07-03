@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://daw4l80sscsb7"]
+[gd_scene load_steps=14 format=3 uid="uid://daw4l80sscsb7"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_libco"]
 [ext_resource type="Texture2D" uid="uid://ce17jxpspyhy1" path="res://Assets/Sprites/Player/Static/Template.png" id="1_lp7hn"]
@@ -55,6 +55,9 @@ animations = [{
 "speed": 11.5
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q34wj"]
+size = Vector2(10, 21)
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
 material = SubResource("ShaderMaterial_e131h")
@@ -71,9 +74,11 @@ variable_jump_gravity_multiplier = 2.0
 coyote_frames = 8.0
 friction = 160
 air_friction = 32.0
+recoil_friction = 48.0
 attack_time = 4
-attack_recoil = 620.0
+attack_recoil = 200.0
 pogo_velocity = 920.0
+invicibility_frames = 20
 
 [node name="PlayerHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5.5)
@@ -97,3 +102,11 @@ debug_color = Color(0.984314, 0, 0, 0.419608)
 sprite_frames = SubResource("SpriteFrames_bnbsd")
 animation = &"X"
 frame_progress = 0.837806
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, 5.5)
+collision_layer = 0
+collision_mask = 8
+
+[node name="HurtboxCollider" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_q34wj")

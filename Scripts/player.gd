@@ -24,6 +24,7 @@ var coyote_time : float
 @export_category("Friction")
 @export var friction = 20
 @export var air_friction : float
+@export var recoil_friction : float
 
 # Attack
 @export_category("Attack")
@@ -32,6 +33,10 @@ var coyote_time : float
 @export var pogo_velocity : float
 var attack_direction = "right"
 var recoiled = false
+
+# Player Damage
+@export var invicibility_frames : int
+var inv_timer = 0
 # Debug
 var debug_enabled = false
 
@@ -48,6 +53,8 @@ var attack_timer = 0
 const gm = preload("res://Scripts/game_manager.gd")
 
 func _process(_delta):
+	if inv_timer > 0:
+		inv_timer -= 1
 	if attack_timer > 0:
 		attack_timer -= 1
 	if attack_timer < 20 - attack_time:
@@ -92,10 +99,8 @@ func _physics_process(delta):
 	if attack_timer == 0:
 		if Input.is_action_just_pressed("attack") and attacking == false:
 			attack()
-	if recoiled == false:
-		if $AttackArea.has_overlapping_bodies():
-			apply_attack_recoil()
-			recoiled = true
+	if $AttackArea.has_overlapping_bodies():
+		apply_attack_recoil()
 # Facing and sprite flipping
 	facing = get_facing()
 	if get_facing() == "left":
@@ -106,11 +111,15 @@ func _physics_process(delta):
 	accelerate()
 # Friction
 	apply_friction()
-	if abs(velocity.x) < friction and direction == 0:
+	if abs(velocity.x) < friction and direction == 0 and !attacking:
 		velocity.x = 0
 	move_and_slide()
+	
+# Hurt Player
+	if $Hurtbox.has_overlapping_areas() and inv_timer == 0:
+		$Hurtbox.get_overlapping_areas().global_position()
 # Print
-	print(get_gravity())
+	#print(get_gravity())
 func accelerate():
 	if is_on_floor():
 		# Right
@@ -138,16 +147,21 @@ func get_gravity() -> float:
 		return fall_gravity
 func apply_friction():
 # Apply friction
-	if is_on_floor() and direction == 0:
+	if is_on_floor() and direction == 0 and attack_timer == 0:
 		if velocity.x > 0:
 			velocity.x -= friction
 		if velocity.x < 0:
 			velocity.x += friction
-	elif direction == 0:
+	elif direction == 0 and !is_on_floor():
 		if velocity.x > 0:
 			velocity.x -= air_friction
 		if velocity.x < 0:
 			velocity.x += air_friction
+	elif attack_timer > 0 and is_on_floor() and direction == 0:
+		if velocity.x > 0:
+			velocity.x -= recoil_friction
+		if velocity.x < 0:
+			velocity.x += recoil_friction
 func jump():
 	if coyote_time > 0:
 		velocity.y = jump_velocity
@@ -184,7 +198,9 @@ func apply_attack_recoil():
 	if attack_direction == "up":
 		velocity.y += attack_recoil
 	if attack_direction == "down":
-		velocity.y = -pogo_velocity
+		if recoiled == false:
+			velocity.y = -pogo_velocity
+			recoiled = true
 	if attack_direction == "left":
 		velocity.x += attack_recoil
 	if attack_direction == "right":
@@ -202,3 +218,6 @@ func debug_menu():
 		get_tree().set_debug_collisions_hint(true)
 	else:
 		get_tree().set_debug_collisions_hint(false)
+func hurt(enemy_pos):
+	inv_timer = invicibility_frames
+	print($Hurtbox.get_overlapping_areas())
