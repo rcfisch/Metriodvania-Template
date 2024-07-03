@@ -73,7 +73,7 @@ friction = 160
 air_friction = 32.0
 attack_time = 4
 attack_recoil = 620.0
-pogo_velocity = 720.0
+pogo_velocity = 920.0
 
 [node name="PlayerHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5.5)

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://brd6hgup3rolk"]
+[gd_scene load_steps=6 format=3 uid="uid://brd6hgup3rolk"]
 
 [ext_resource type="PackedScene" uid="uid://dxfp2e21vqmlv" path="res://Entities/Enemy/WalkingEnemy.tscn" id="2_fhsqc"]
 [ext_resource type="PackedScene" uid="uid://s13k54c5atdq" path="res://World/red_bricks.tscn" id="3_jxofv"]
 [ext_resource type="PackedScene" uid="uid://daw4l80sscsb7" path="res://Entities/Player/player.tscn" id="4_bfbxc"]
 [ext_resource type="Script" path="res://Scripts/WalkingEnemy.gd" id="4_o0jo5"]
+[ext_resource type="PackedScene" uid="uid://dwev8162py38d" path="res://Entities/Misc/BounceOrb.tscn" id="5_g3qxs"]
 
 [node name="TestingWorld" type="Node2D"]
 
@@ -23,3 +24,9 @@ position = Vector2(263, -259)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 scale = Vector2(0.25, 0.25)
+
+[node name="BounceOrb" parent="." instance=ExtResource("5_g3qxs")]
+position = Vector2(-616, -372)
+
+[node name="BounceOrb2" parent="." instance=ExtResource("5_g3qxs")]
+position = Vector2(-396, -452)

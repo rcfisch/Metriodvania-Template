@@ -130,12 +130,10 @@ func accelerate():
 func get_gravity() -> float:
 # Return correct gravity for the situation
 	if velocity.y < 0:
-		if is_jumping == true and Input.is_action_pressed("jump"):
+		if is_jumping == true and Input.is_action_pressed("jump") and attack_timer == 0:
 			return jump_gravity
-		elif !recoiled:
-			return jump_gravity * variable_jump_gravity_multiplier
 		else:
-			return jump_gravity
+			return jump_gravity * variable_jump_gravity_multiplier
 	else: 
 		return fall_gravity
 func apply_friction():
