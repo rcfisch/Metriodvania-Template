@@ -1,35 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://brd6hgup3rolk"]
+[gd_scene load_steps=5 format=3 uid="uid://brd6hgup3rolk"]
 
-[ext_resource type="Texture2D" uid="uid://b8w5l8drgsg8d" path="res://icon.png" id="1_c66kv"]
 [ext_resource type="PackedScene" uid="uid://dxfp2e21vqmlv" path="res://Entities/Enemy/WalkingEnemy.tscn" id="2_fhsqc"]
 [ext_resource type="PackedScene" uid="uid://s13k54c5atdq" path="res://World/red_bricks.tscn" id="3_jxofv"]
+[ext_resource type="PackedScene" uid="uid://daw4l80sscsb7" path="res://Entities/Player/player.tscn" id="4_bfbxc"]
 [ext_resource type="Script" path="res://Scripts/WalkingEnemy.gd" id="4_o0jo5"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fchlu"]
-size = Vector2(481, 92)
 
 [node name="TestingWorld" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
-position = Vector2(-7.15256e-07, 44.5625)
-scale = Vector2(3.75, 0.694336)
-texture = ExtResource("1_c66kv")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0.5, 46)
-shape = SubResource("RectangleShape2D_fchlu")
-
 [node name="RedBricks" parent="." instance=ExtResource("3_jxofv")]
-layer_0/tile_data = PackedInt32Array(-9, 65536, 1, -8, 65536, 1, -7, 65536, 1, -6, 65536, 1, -5, 65536, 1, -4, 65536, 1, -3, 65536, 1, -2, 65536, 1, -1, 65536, 1, -65536, 65536, 1, -65535, 65536, 1, -65534, 65536, 1, -65533, 65536, 1, -131068, 65536, 1, -131067, 65536, 1, -131066, 65536, 1, -131065, 65536, 1, -131064, 65536, 1, -65532, 65536, 1, -65531, 65536, 1, -65530, 65536, 1, -65529, 65536, 1, -65528, 65536, 1, -65527, 65536, 1, -131063, 65536, 1, -196599, 65536, 1, -196600, 65536, 1, -196601, 65536, 1, -262136, 65536, 1)
+layer_0/tile_data = PackedInt32Array(-9, 65536, 1, -8, 65536, 1, -7, 65536, 1, -6, 65536, 1, -5, 65536, 1, -4, 65536, 1, -3, 65536, 1, -2, 65536, 1, -1, 65536, 1, -65536, 65536, 1, -65535, 65536, 1, -65534, 65536, 1, -65533, 65536, 1, -131068, 65536, 1, -131067, 65536, 1, -131066, 65536, 1, -131065, 65536, 1, -131064, 65536, 1, -65532, 65536, 1, -65531, 65536, 1, -65530, 65536, 1, -65529, 65536, 1, -65528, 65536, 1, -65527, 65536, 1, -131063, 65536, 1, -196599, 65536, 1, -196600, 65536, 1, -196601, 65536, 1, -262136, 65536, 1, -10, 65536, 1, -11, 65536, 1, -12, 65536, 1, -13, 65536, 1, -14, 65536, 1, -15, 65536, 1, -16, 65536, 1, -17, 65536, 1, -18, 65536, 1, -19, 65536, 1, -20, 65536, 1, -21, 65536, 1, -22, 65536, 1, -23, 65536, 1, -24, 65536, 1, -25, 65536, 1, -393214, 65536, 1, -393224, 65536, 1, -458770, 65536, 1, -393241, 65536, 1, -26, 65536, 1, -27, 65536, 1, -28, 65536, 1, -29, 65536, 1, -65526, 65536, 1, -65525, 65536, 1, -65524, 65536, 1, -65523, 65536, 1, -65522, 65536, 1, -65521, 65536, 1, -65520, 65536, 1, -65519, 65536, 1, -65518, 65536, 1, -65517, 65536, 1, -65516, 65536, 1, -65515, 65536, 1)
 
 [node name="BaseEnemy" parent="." instance=ExtResource("2_fhsqc")]
 position = Vector2(0, -64)
 script = ExtResource("4_o0jo5")
-speed = 10.0
-gravity = 1.0
+speed = 60.0
+gravity = 20.0
 is_patrolling = true
-alert_distance = 0.0
+
+[node name="Player" parent="." instance=ExtResource("4_bfbxc")]
+position = Vector2(263, -259)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-65.75, 64.75)
+scale = Vector2(0.25, 0.25)

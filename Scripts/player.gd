@@ -44,6 +44,8 @@ var y_direction : float
 var attacking = false
 var attack_timer = 0
 
+const gm = preload("res://Scripts/game_manager.gd")
+
 func _process(_delta):
 	if attack_timer > 0:
 		attack_timer -= 1
@@ -51,6 +53,7 @@ func _process(_delta):
 		recoiled = false
 
 func _physics_process(delta):
+	gm.player_pos = global_position
 	if Input.is_action_just_pressed("debug"):
 		debug_menu()
 # Gravity

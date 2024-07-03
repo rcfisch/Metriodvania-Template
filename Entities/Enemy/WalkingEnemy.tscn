@@ -4,22 +4,24 @@
 [ext_resource type="Texture2D" uid="uid://b8w5l8drgsg8d" path="res://icon.png" id="1_l5bgj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_44ma3"]
-size = Vector2(64, 128)
+size = Vector2(58, 80)
 
-[node name="BaseEnemy" type="CharacterBody2D"]
+[node name="WalkingEnemy" type="CharacterBody2D"]
+platform_floor_layers = 4294901763
+platform_wall_layers = 1
 script = ExtResource("1_e04rn")
 alert_distance = 10.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
-position = Vector2(0, -64)
-scale = Vector2(0.5, 1)
+position = Vector2(0, -40)
+scale = Vector2(0.445312, 0.626221)
 texture = ExtResource("1_l5bgj")
 
 [node name="Colider" type="CollisionShape2D" parent="."]
-position = Vector2(0, -64)
+position = Vector2(0, -40)
 shape = SubResource("RectangleShape2D_44ma3")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(62, 0)
+position = Vector2(29, 0)
 target_position = Vector2(0, 9)
 hit_from_inside = true

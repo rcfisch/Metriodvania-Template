@@ -11,11 +11,13 @@ func _physics_process(delta):
 	if !is_on_floor():
 		velocity.y += 1
 	if alerted:
-		pass
+		dir_to_player = clamp(gm.player_pos.x - global_position.x, -1, 1) 
+		if !check_for_obsticles():
+			move_toward_player()
 	elif is_on_floor() and is_patrolling:
 		if check_for_obsticles():
 			dir = dir * -1
-			scale = scale * -1
+			scale.x = scale.x * -1
 		move_on_patrol()	
 	move_and_slide()
 
