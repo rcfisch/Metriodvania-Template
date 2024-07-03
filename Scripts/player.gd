@@ -69,6 +69,7 @@ func _physics_process(delta):
 	else:
 		attacking = false
 		$AttackArea/AttackHitbox.visible = false
+		$AttackArea/AttackSprite.stop
 	if attacking == true:
 		$AttackArea/AttackHitbox.disabled = false
 		$AttackArea/AttackSprite.visible = true
@@ -133,6 +134,8 @@ func jump():
 		is_jumping = true
 		coyote_time = 0
 func attack():
+	$AttackArea/AttackSprite.frame = 0
+	$AttackArea/AttackSprite.play("X")
 	attack_timer = attack_time
 	if facing == "left":
 		$AttackArea/AttackSprite.flip_h = true
@@ -140,25 +143,25 @@ func attack():
 		$AttackArea/AttackSprite.flip_h = false
 	if Input.is_action_pressed("up") and !Input.is_action_pressed("down"):
 		$AttackArea.position.x = 0
-		$AttackArea.position.y = -11
+		$AttackArea.position.y = -12.5
 		if facing == "left":
 			$AttackArea/AttackSprite.rotation_degrees = 90
 		else:
 			$AttackArea/AttackSprite.rotation_degrees = 270
 	elif Input.is_action_pressed("down") and !is_on_floor() and !Input.is_action_pressed("up"):
 		$AttackArea.position.x = 0
-		$AttackArea.position.y = 22
+		$AttackArea.position.y = 23.5
 		if facing == "right":
 			$AttackArea/AttackSprite.rotation_degrees = 90
 		else:
 			$AttackArea/AttackSprite.rotation_degrees = 270
 	elif facing == "right":
-		$AttackArea.position.x = 11
-		$AttackArea.position.y = 5
+		$AttackArea.position.x = 12.5
+		$AttackArea.position.y = 5.5
 		$AttackArea/AttackSprite.rotation_degrees = 0
 	elif facing == "left":
-		$AttackArea.position.x = -11
-		$AttackArea.position.y = 5
+		$AttackArea.position.x = -12.5
+		$AttackArea.position.y = 5.5
 		$AttackArea/AttackSprite.rotation_degrees = 0
 func get_facing() -> String:
 	if Input.is_action_pressed("left"):
