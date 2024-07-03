@@ -8,12 +8,16 @@ var dir : int = 1
 var dir_to_player : int = 1
 
 func _physics_process(delta):
+	if velocity.x > 0:
+		$Sprite.flip_h = true
+	if velocity.x < 0:
+		$Sprite.flip_h = false
+	
 	if !is_on_floor():
 		velocity.y += 1
 		
 	if alerted:
 		dir_to_player = clamp(gm.player_pos.x - global_position.x, -1, 1) 
-		scale.x = clamp(gm.player_pos.x - global_position.x, -1, 1)
 		if !check_for_obsticles():
 			move_toward_player()
 			
