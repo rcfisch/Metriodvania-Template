@@ -24,7 +24,9 @@ var coyote_time : float
 
 # Attack
 @export var attack_time : int
-
+@export var attack_recoil : float
+var attack_direction = "right"
+var recoiled = false
 # Debug
 var debug_enabled = false
 
@@ -41,6 +43,8 @@ var attack_timer = 0
 func _process(_delta):
 	if attack_timer > 0:
 		attack_timer -= 1
+	if attack_timer < 20 - attack_time:
+		recoiled = false
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("debug"):
@@ -63,26 +67,34 @@ func _physics_process(delta):
 	if velocity.y > 0:
 		is_jumping = false
 # Attack
-	if attack_timer > 0:
+	if attack_timer > 20 - attack_time:
 		attacking = true
-		$AttackArea/AttackHitbox.visible = true
 	else:
 		attacking = false
-		$AttackArea/AttackHitbox.visible = false
-		$AttackArea/AttackSprite.stop
-	if attacking == true:
-		$AttackArea/AttackHitbox.disabled = false
+	if attack_timer > 0:
 		$AttackArea/AttackSprite.visible = true
 	else:
-		$AttackArea/AttackHitbox.disabled = true
 		$AttackArea/AttackSprite.visible = false
-	if Input.is_action_just_pressed("attack") and attacking == false:
-		attack()
+	if attacking == true:
+		$AttackArea/AttackHitbox.visible = true
+		$AttackArea/AttackHitbox.disabled = false
+	else:
+		$AttackArea/AttackHitbox.disabled = true
+		$AttackArea/AttackHitbox.visible = false
+	if attack_timer == 0:
+		if Input.is_action_just_pressed("attack") and attacking == false:
+			attack()
+	if recoiled == false:
+		if $AttackArea.has_overlapping_bodies():
+			apply_attack_recoil()
+			recoiled = true
+# Facing and sprite flipping
 	facing = get_facing()
 	if get_facing() == "left":
 		$Sprite.flip_h = true
 	else:
 		$Sprite.flip_h = false
+	
 	accelerate()
 # Friction
 	apply_friction()
@@ -118,12 +130,12 @@ func get_gravity() -> float:
 		return fall_gravity
 func apply_friction():
 # Apply friction
-	if is_on_floor():
+	if is_on_floor() and direction == 0:
 		if velocity.x > 0:
 			velocity.x -= friction
 		if velocity.x < 0:
 			velocity.x += friction
-	else:
+	elif direction == 0:
 		if velocity.x > 0:
 			velocity.x -= air_friction
 		if velocity.x < 0:
@@ -136,12 +148,13 @@ func jump():
 func attack():
 	$AttackArea/AttackSprite.frame = 0
 	$AttackArea/AttackSprite.play("X")
-	attack_timer = attack_time
+	attack_timer = 20
 	if facing == "left":
 		$AttackArea/AttackSprite.flip_h = true
 	if facing == "right":
 		$AttackArea/AttackSprite.flip_h = false
 	if Input.is_action_pressed("up") and !Input.is_action_pressed("down"):
+		attack_direction = "up"
 		$AttackArea.position.x = 0
 		$AttackArea.position.y = -12.5
 		if facing == "left":
@@ -149,6 +162,7 @@ func attack():
 		else:
 			$AttackArea/AttackSprite.rotation_degrees = 270
 	elif Input.is_action_pressed("down") and !is_on_floor() and !Input.is_action_pressed("up"):
+		attack_direction = "down"
 		$AttackArea.position.x = 0
 		$AttackArea.position.y = 23.5
 		if facing == "right":
@@ -156,13 +170,24 @@ func attack():
 		else:
 			$AttackArea/AttackSprite.rotation_degrees = 270
 	elif facing == "right":
+		attack_direction = "right"
 		$AttackArea.position.x = 12.5
 		$AttackArea.position.y = 5.5
 		$AttackArea/AttackSprite.rotation_degrees = 0
 	elif facing == "left":
+		attack_direction = "left"
 		$AttackArea.position.x = -12.5
 		$AttackArea.position.y = 5.5
 		$AttackArea/AttackSprite.rotation_degrees = 0
+func apply_attack_recoil():
+	if attack_direction == "up":
+		velocity.y += attack_recoil
+	if attack_direction == "down":
+		velocity.y = -attack_recoil * 1.5
+	if attack_direction == "left":
+		velocity.x += attack_recoil
+	if attack_direction == "right":
+		velocity.x -= attack_recoil
 func get_facing() -> String:
 	if Input.is_action_pressed("left"):
 		return "left"

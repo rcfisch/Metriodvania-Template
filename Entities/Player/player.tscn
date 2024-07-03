@@ -59,17 +59,19 @@ animations = [{
 material = SubResource("ShaderMaterial_e131h")
 scale = Vector2(4, 4)
 script = ExtResource("1_libco")
-accel = 40.0
-air_accel = 15.0
-speed = 130.0
-max_fall_speed = 300.0
-jump_height = 50.0
-jump_seconds_to_peak = 0.4
-jump_seconds_to_descent = 0.5
-variable_jump_gravity_multiplier = 3.0
+accel = 64.0
+air_accel = 28.0
+speed = 520.0
+max_fall_speed = 880.0
+jump_height = 160.0
+jump_seconds_to_peak = 0.42
+jump_seconds_to_descent = 0.38
+variable_jump_gravity_multiplier = 2.0
 coyote_frames = 8.0
-air_friction = 8.0
-attack_time = 20
+friction = 80
+air_friction = 32.0
+attack_time = 5
+attack_recoil = 520.0
 
 [node name="PlayerHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5.5)
@@ -80,9 +82,9 @@ texture_filter = 1
 texture = ExtResource("1_lp7hn")
 
 [node name="AttackArea" type="Area2D" parent="."]
-position = Vector2(0, -13.5)
+position = Vector2(0, -12.5)
 collision_layer = 2
-collision_mask = 0
+collision_mask = 2
 
 [node name="AttackHitbox" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("RectangleShape2D_ohrhg")

@@ -1,16 +1,33 @@
 [gd_scene load_steps=4 format=3 uid="uid://s13k54c5atdq"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g1m1c"]
+[ext_resource type="Texture2D" uid="uid://b85bxwdhuldi" path="res://Assets/red_brick.png" id="1_bmqr0"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_luwk8"]
-texture = SubResource("CompressedTexture2D_g1m1c")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w332d"]
+texture = ExtResource("1_bmqr0")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
 
-[sub_resource type="TileSet" id="TileSet_tugna"]
+[sub_resource type="TileSet" id="TileSet_7a4a5"]
 tile_size = Vector2i(8, 8)
-physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_luwk8")
+physics_layer_0/collision_layer = 3
+sources/0 = SubResource("TileSetAtlasSource_w332d")
 
 [node name="RedBricks" type="TileMap"]
 scale = Vector2(4, 4)
-tile_set = SubResource("TileSet_tugna")
+tile_set = SubResource("TileSet_7a4a5")
 format = 2
