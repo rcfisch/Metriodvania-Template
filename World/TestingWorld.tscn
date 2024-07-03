@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bk1flnnoeg7fm"]
+[gd_scene load_steps=6 format=3 uid="uid://brd6hgup3rolk"]
 
 [ext_resource type="Texture2D" uid="uid://b8w5l8drgsg8d" path="res://icon.png" id="1_c66kv"]
 [ext_resource type="PackedScene" uid="uid://dxfp2e21vqmlv" path="res://Entities/Enemy/WalkingEnemy.tscn" id="2_fhsqc"]
-[ext_resource type="Script" path="res://Scripts/WalkingEnemy.gd" id="3_iby4i"]
+[ext_resource type="PackedScene" uid="uid://s13k54c5atdq" path="res://World/red_bricks.tscn" id="3_jxofv"]
+[ext_resource type="Script" path="res://Scripts/WalkingEnemy.gd" id="4_o0jo5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fchlu"]
 size = Vector2(481, 92)
@@ -22,9 +23,13 @@ texture = ExtResource("1_c66kv")
 position = Vector2(0.5, 46)
 shape = SubResource("RectangleShape2D_fchlu")
 
+[node name="RedBricks" parent="." instance=ExtResource("3_jxofv")]
+layer_0/tile_data = PackedInt32Array(-9, 65536, 1, -8, 65536, 1, -7, 65536, 1, -6, 65536, 1, -5, 65536, 1, -4, 65536, 1, -3, 65536, 1, -2, 65536, 1, -1, 65536, 1, -65536, 65536, 1, -65535, 65536, 1, -65534, 65536, 1, -65533, 65536, 1, -131068, 65536, 1, -131067, 65536, 1, -131066, 65536, 1, -131065, 65536, 1, -131064, 65536, 1, -65532, 65536, 1, -65531, 65536, 1, -65530, 65536, 1, -65529, 65536, 1, -65528, 65536, 1, -65527, 65536, 1, -131063, 65536, 1, -196599, 65536, 1, -196600, 65536, 1, -196601, 65536, 1, -262136, 65536, 1)
+
 [node name="BaseEnemy" parent="." instance=ExtResource("2_fhsqc")]
-position = Vector2(4, -48)
-script = ExtResource("3_iby4i")
+position = Vector2(0, -64)
+script = ExtResource("4_o0jo5")
 speed = 10.0
 gravity = 1.0
 is_patrolling = true
+alert_distance = 0.0

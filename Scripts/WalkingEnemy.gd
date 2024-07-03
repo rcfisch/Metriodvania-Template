@@ -17,6 +17,7 @@ func _physics_process(delta):
 			dir = dir * -1
 			scale = scale * -1
 		move_on_patrol()	
+	move_and_slide()
 
 func move_on_patrol():
 	velocity = Vector2(speed * dir, velocity.y)
