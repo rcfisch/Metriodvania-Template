@@ -22,13 +22,32 @@ var coyote_time : float
 @export var friction = 20
 @export var air_friction : float
 
+# Attack
+@export var attack_time : int
+
+# Debug
+var debug_enabled = false
+
+# Misc
+var facing = "right"
+
+
 var is_jumping = false
 var direction : float
+var y_direction : float
+var attacking = false
+var attack_timer = 0
 
+func _process(_delta):
+	if attack_timer > 0:
+		attack_timer -= 1
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("debug"):
+		debug_menu()
 # Gravity
 	direction = Input.get_axis("left","right")
+	y_direction = Input.get_axis("up","down")
 	if velocity.y < max_fall_speed:
 		velocity.y += get_gravity() * delta
 	else: 
@@ -43,15 +62,32 @@ func _physics_process(delta):
 		
 	if velocity.y > 0:
 		is_jumping = false
-		
-	
+# Attack
+	if attack_timer > 0:
+		attacking = true
+		$AttackArea/AttackHitbox.visible = true
+	else:
+		attacking = false
+		$AttackArea/AttackHitbox.visible = false
+	if attacking == true:
+		$AttackArea/AttackHitbox.disabled = false
+		$AttackArea/AttackSprite.visible = true
+	else:
+		$AttackArea/AttackHitbox.disabled = true
+		$AttackArea/AttackSprite.visible = false
+	if Input.is_action_just_pressed("attack") and attacking == false:
+		attack()
+	facing = get_facing()
+	if get_facing() == "left":
+		$Sprite.flip_h = true
+	else:
+		$Sprite.flip_h = false
 	accelerate()
 # Friction
 	apply_friction()
 	if abs(velocity.x) < friction and direction == 0:
 		velocity.x = 0
 	move_and_slide()
-	print(direction)
 func accelerate():
 	if is_on_floor():
 		# Right
@@ -96,3 +132,44 @@ func jump():
 		velocity.y = jump_velocity
 		is_jumping = true
 		coyote_time = 0
+func attack():
+	attack_timer = attack_time
+	if facing == "left":
+		$AttackArea/AttackSprite.flip_h = true
+	if facing == "right":
+		$AttackArea/AttackSprite.flip_h = false
+	if Input.is_action_pressed("up") and !Input.is_action_pressed("down"):
+		$AttackArea.position.x = 0
+		$AttackArea.position.y = -11
+		if facing == "left":
+			$AttackArea/AttackSprite.rotation_degrees = 90
+		else:
+			$AttackArea/AttackSprite.rotation_degrees = 270
+	elif Input.is_action_pressed("down") and !is_on_floor() and !Input.is_action_pressed("up"):
+		$AttackArea.position.x = 0
+		$AttackArea.position.y = 22
+		if facing == "right":
+			$AttackArea/AttackSprite.rotation_degrees = 90
+		else:
+			$AttackArea/AttackSprite.rotation_degrees = 270
+	elif facing == "right":
+		$AttackArea.position.x = 11
+		$AttackArea.position.y = 5
+		$AttackArea/AttackSprite.rotation_degrees = 0
+	elif facing == "left":
+		$AttackArea.position.x = -11
+		$AttackArea.position.y = 5
+		$AttackArea/AttackSprite.rotation_degrees = 0
+func get_facing() -> String:
+	if Input.is_action_pressed("left"):
+		return "left"
+	elif Input.is_action_pressed("right"):
+		return "right"
+	else:
+		return facing
+func debug_menu():
+	debug_enabled = !debug_enabled
+	if debug_enabled:
+		get_tree().set_debug_collisions_hint(true)
+	else:
+		get_tree().set_debug_collisions_hint(false)
