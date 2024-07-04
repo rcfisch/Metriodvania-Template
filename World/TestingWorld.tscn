@@ -13,7 +13,8 @@ layer_0/tile_data = PackedInt32Array(-9, 65536, 1, -8, 65536, 1, -7, 65536, 1, -
 
 [node name="Player" parent="." instance=ExtResource("4_bfbxc")]
 position = Vector2(263, -259)
-enemy_knockback = 1000.0
+enemy_knockback = 720.0
+invicibility_frames = 90
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 scale = Vector2(0.25, 0.25)
