@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://csk372gnwtke1"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_x0h32"]
+[ext_resource type="Texture2D" uid="uid://bjocac15utwwy" path="res://Assets/enemy_cardboard_cutout.png" id="2_r3p1o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44ma3"]
+size = Vector2(128, 232)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0mwxh"]
+size = Vector2(128, 232)
+
+[node name="WalkingEnemy" type="CharacterBody2D"]
+collision_layer = 6
+collision_mask = 4
+platform_floor_layers = 4294901763
+platform_wall_layers = 1
+script = ExtResource("1_x0h32")
+alert_distance = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -108)
+texture = ExtResource("2_r3p1o")
+flip_h = true
+
+[node name="Colider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -116)
+shape = SubResource("RectangleShape2D_44ma3")
+
+[node name="HitPlayer" type="Area2D" parent="Colider"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="HitPlayerCollider" type="CollisionShape2D" parent="Colider/HitPlayer"]
+shape = SubResource("RectangleShape2D_0mwxh")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(85, -1)
+target_position = Vector2(0, 9)
+hit_from_inside = true
+
+[node name="RayCast2D2" type="RayCast2D" parent="."]
+position = Vector2(85, -16)
+target_position = Vector2(9, 0)
+hit_from_inside = true
