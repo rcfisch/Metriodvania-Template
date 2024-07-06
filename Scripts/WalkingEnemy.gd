@@ -4,7 +4,7 @@ var dir : int = 1
 var dir_to_player : int = 1
 var dis_to_player : float
 
-@export var speed = 50
+@export var speed = 200
 @export var is_patrolling : bool = true
 
 # Jump
@@ -39,12 +39,9 @@ func _physics_process(delta):
 		move_toward_player()
 		if is_on_floor() and check_for_obsticles():
 			jump()
-			print(dis_to_player)
-		if is_on_floor() and dis_to_player < attack_jump_distance:
+		if is_on_floor() and dis_to_player < attack_jump_distance and abs(gm.player_vel.x) < 20:
 			if dis_to_player > attack_jump_distance - 20:
 				jump()
-				
-			
 	elif is_patrolling and is_on_floor():
 		if check_for_obsticles():
 			dir = dir * -1
@@ -52,9 +49,11 @@ func _physics_process(delta):
 		move_on_patrol()
 	move_and_slide()
 
+	print(check_for_obsticles())
 func jump():
 	if is_on_floor():
 		velocity.y = jump_velocity
+		velocity.x += (100 * dir_to_player)
 func move_on_patrol():
 	if is_on_floor():
 		velocity = Vector2(speed * dir, velocity.y)
@@ -62,12 +61,19 @@ func move_toward_player():
 	if is_on_floor():
 		velocity = Vector2(speed * dir_to_player, velocity.y)
 	else: 
-		velocity.x += (speed * dir_to_player) / 10
+		if abs(velocity.x) < speed:
+			velocity.x += (10 * dir_to_player)
 	
 func check_for_obsticles() -> bool:
 	if $Raycasts/Wallcast2D.is_colliding():
 		return true
-	else: return false
+	elif !$Raycasts/Floorcast2D.is_colliding():
+		if is_on_floor():
+			return true
+		else: 
+			return false
+	else:
+		return false
 	
 func get_gravity() -> float:
 # Return correct gravity for the situation

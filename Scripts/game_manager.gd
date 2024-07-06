@@ -4,4 +4,4 @@ static var player_pos : Vector2
 
 static var enemy_list : Array[Node2D]
 
-static var fall_speed : float
+static var player_vel : Vector2

@@ -64,7 +64,7 @@ func _process(_delta):
 
 func _physics_process(delta):
 	gm.player_pos = global_position
-	gm.fall_speed = max_fall_speed
+	gm.player_vel = velocity
 	if Input.is_action_just_pressed("debug"):
 		debug_menu()
 # Gravity
