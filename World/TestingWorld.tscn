@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://s13k54c5atdq" path="res://World/red_bricks.tscn" id="3_jxofv"]
 [ext_resource type="PackedScene" uid="uid://daw4l80sscsb7" path="res://Entities/Player/player.tscn" id="4_bfbxc"]
-[ext_resource type="PackedScene" path="res://Entities/Enemy/sm_cardboard_enemy.tscn" id="5_04337"]
+[ext_resource type="PackedScene" uid="uid://bajgnkdi3qw1n" path="res://Entities/Enemy/sm_cardboard_enemy.tscn" id="5_04337"]
 [ext_resource type="PackedScene" uid="uid://dwev8162py38d" path="res://Entities/Misc/BounceOrb.tscn" id="5_g3qxs"]
-[ext_resource type="PackedScene" path="res://Entities/Enemy/bg_cardboard_enemy.tscn" id="6_gk4s0"]
+[ext_resource type="PackedScene" uid="uid://csk372gnwtke1" path="res://Entities/Enemy/bg_cardboard_enemy.tscn" id="6_gk4s0"]
 
 [node name="TestingWorld" type="Node2D"]
 
@@ -30,6 +30,5 @@ position = Vector2(-124, -214)
 
 [node name="sm_cardboard_enemy" parent="." instance=ExtResource("5_04337")]
 position = Vector2(-344, -204)
-speed = 250
-attack_jump_distance = 200
+speed = 50
 alert_distance = 200.0

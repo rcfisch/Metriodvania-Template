@@ -4,6 +4,21 @@ var dir : int = 1
 var dir_to_player : int = 1
 var dis_to_player : float
 
+@export var speed = 50
+@export var is_patrolling : bool = true
+
+# Jump
+var max_fall_speed = 880
+
+@export_category("Jump")
+@export var attack_jump_distance = 150
+@export var jump_height = 160
+@export var jump_seconds_to_peak = 0.42
+@export var jump_seconds_to_descent = 0.5
+# Jump Calculations
+@onready var jump_velocity : float = ((2.0 * jump_height) / jump_seconds_to_peak) * -1
+@onready var jump_gravity : float = ((-2.0 * jump_height) / (jump_seconds_to_peak * jump_seconds_to_peak)) * -1
+@onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_seconds_to_descent * jump_seconds_to_descent)) * -1
 
 
 func _physics_process(delta):
