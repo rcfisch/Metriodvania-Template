@@ -15,8 +15,6 @@ collision_mask = 4
 platform_floor_layers = 4294901763
 platform_wall_layers = 1
 script = ExtResource("1_e04rn")
-speed = 100
-jump_seconds_to_descent = 0.38
 alert_distance = 10.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
