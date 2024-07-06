@@ -15,6 +15,8 @@ collision_mask = 4
 platform_floor_layers = 4294901763
 platform_wall_layers = 1
 script = ExtResource("1_e04rn")
+speed = 100
+jump_seconds_to_descent = 0.38
 alert_distance = 10.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -36,9 +38,11 @@ shape = SubResource("RectangleShape2D_0mwxh")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(85, -1)
 target_position = Vector2(0, 9)
+collision_mask = 4
 hit_from_inside = true
 
 [node name="RayCast2D2" type="RayCast2D" parent="."]
 position = Vector2(85, -16)
 target_position = Vector2(9, 0)
+collision_mask = 4
 hit_from_inside = true
