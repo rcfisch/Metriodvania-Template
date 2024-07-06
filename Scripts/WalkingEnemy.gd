@@ -30,6 +30,7 @@ func _physics_process(delta):
 	
 	if velocity.x > 0:
 		$Sprite.flip_h = true
+		
 	if velocity.x < 0:
 		$Sprite.flip_h = false
 
@@ -44,8 +45,9 @@ func _physics_process(delta):
 				jump()
 	elif is_patrolling and is_on_floor():
 		if check_for_obsticles():
+			print(dir)
 			dir = dir * -1
-			$Raycasts.scale.x = scale.x * -1
+			$Raycasts.scale.x = dir
 		move_on_patrol()
 	move_and_slide()
 

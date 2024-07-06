@@ -16,7 +16,7 @@ platform_floor_layers = 4294901763
 platform_wall_layers = 1
 script = ExtResource("1_vs0vu")
 attack_jump_distance = 250
-alert_distance = 10.0
+alert_distance = 400.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -18)
