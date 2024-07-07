@@ -78,7 +78,7 @@ recoil_friction = 48.0
 attack_time = 4
 attack_recoil = 200.0
 pogo_velocity = 920.0
-enemy_knockback = 400.0
+enemy_knockback = 800.0
 invicibility_frames = 60
 
 [node name="PlayerHitbox" type="CollisionShape2D" parent="."]

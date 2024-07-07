@@ -1,4 +1,6 @@
 extends CharacterBody2D
+
+var camera = load("res://Scripts/Camera.gd").new()
 # Acceleration and speed cap
 @export_category("Speeds")
 @export var accel : float
@@ -226,8 +228,15 @@ func debug_menu():
 	else:
 		get_tree().set_debug_collisions_hint(false)
 func hurt(enemy_pos):
+	camera.apply_shake()
+	freeze_frame(0.1, 0.2)
 	var knockback = enemy_pos.direction_to(global_position) * enemy_knockback
 	
 	velocity = Vector2(knockback.x, -abs(knockback.y))
 	inv_timer = invicibility_frames
 	#print(knockback_dir * enemy_knockback)
+
+func freeze_frame(timescale, duration):
+	Engine.time_scale = timescale
+	await(get_tree().create_timer(duration * timescale).timeout)
+	Engine.time_scale = 1.0

@@ -4,6 +4,7 @@ var dir : int = 1
 var dir_to_player : int = 1
 var dis_to_player : float
 
+@export var accel = 60
 @export var speed = 200
 @export var is_patrolling : bool = true
 
@@ -45,13 +46,12 @@ func _physics_process(delta):
 				jump()
 	elif is_patrolling and is_on_floor():
 		if check_for_obsticles():
-			print(dir)
 			dir = dir * -1
 			$Raycasts.scale.x = dir
 		move_on_patrol()
 	move_and_slide()
 
-	print(check_for_obsticles())
+	print(dir)
 func jump():
 	if is_on_floor():
 		velocity.y = jump_velocity
@@ -61,10 +61,11 @@ func move_on_patrol():
 		velocity = Vector2(speed * dir, velocity.y)
 func move_toward_player():
 	if is_on_floor():
-		velocity = Vector2(speed * dir_to_player, velocity.y)
+		if abs(velocity.x) < speed:
+			velocity.x += accel * dir_to_player
 	else: 
 		if abs(velocity.x) < speed:
-			velocity.x += (10 * dir_to_player)
+			velocity.x += (8 * dir_to_player)
 	
 func check_for_obsticles() -> bool:
 	if $Raycasts/Wallcast2D.is_colliding():
