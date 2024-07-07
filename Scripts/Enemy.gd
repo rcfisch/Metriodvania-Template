@@ -20,7 +20,8 @@ func alert(alert_others):
 		return
 	for i in gm.enemy_list.size():
 		if abs(gm.enemy_list[i].global_position.x - global_position.x) + abs(gm.enemy_list[i].global_position.y - global_position.y) < alert_distance:
-			gm.enemy_list[i].get_script().alert(false)
+			pass
+			#gm.enemy_list[i].get_script().alert(false)
 			
 func destory():
 	gm.enemy_list.erase(self)

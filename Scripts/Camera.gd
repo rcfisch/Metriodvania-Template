@@ -1,4 +1,7 @@
 extends Camera2D
+class_name mCamera
+
+static var instance : mCamera
 
 @export var random_strength : float = 30
 @export var shake_fade : float = 5
@@ -10,8 +13,8 @@ var shake_strength : float = 0
 func _ready():
 	pass # Replace with function body.
 
-func apply_shake():
-	shake_strength  = random_strength
+static func apply_shake():
+	instance.shake_strength = instance.random_strength
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
