@@ -23,13 +23,8 @@ var max_fall_speed = 880
 
 
 func _physics_process(delta):
-	
-	
 	dis_to_player = abs(global_position.x - gm.player_pos.x)
-	
-	if velocity.y < max_fall_speed:
-		velocity.y += get_gravity() * delta
-	
+	apply_gravity(delta)
 	if velocity.x > 0:
 		$Sprite2D.flip_h = true
 		
@@ -76,6 +71,9 @@ func check_for_obsticles() -> bool:
 	else:
 		return false
 	
+func apply_gravity(delta):
+	if velocity.y < max_fall_speed:
+		velocity.y += get_gravity() * delta
 func get_gravity() -> float:
 # Return correct gravity for the situation
 	if velocity.y < 0:
