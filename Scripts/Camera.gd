@@ -11,7 +11,7 @@ var rng = RandomNumberGenerator.new()
 var shake_strength : float = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	instance = self
 
 static func apply_shake():
 	instance.shake_strength = instance.random_strength
