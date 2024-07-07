@@ -62,6 +62,7 @@ size = Vector2(10, 21)
 z_index = 1
 material = SubResource("ShaderMaterial_e131h")
 scale = Vector2(4, 4)
+collision_layer = 17
 script = ExtResource("1_libco")
 accel = 120.0
 air_accel = 32.0
