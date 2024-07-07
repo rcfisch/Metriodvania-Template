@@ -8,6 +8,7 @@ var camera = load("res://Scripts/Camera.gd").new()
 @export var air_accel : float
 @export var speed : float
 @export var max_fall_speed : float
+var rv : Vector2
 # Jump
 @export_category("Jump")
 @export var jump_height : float
@@ -141,18 +142,18 @@ func accelerate():
 	if is_on_floor():
 		# Right
 		if direction == 1:
-			velocity.x = min(velocity.x + accel, speed)
+			rv.x = min(rv.x + accel, speed)
 		# Left
 		if direction == -1:
-			velocity.x = max(velocity.x - accel, -speed)
+			rv.x = max(rv.x - accel, -speed)
 	else:
 # Air Acceleration
 		# Right
 		if direction == 1:
-			velocity.x = min(velocity.x + air_accel, speed)
+			rv.x = min(rv.x + air_accel, speed)
 		# Left
 		if direction == -1:
-			velocity.x = max(velocity.x - air_accel, -speed)
+			rv.x = max(rv.x - air_accel, -speed)
 func get_gravity() -> float:
 # Return correct gravity for the situation
 	if velocity.y < 0:
