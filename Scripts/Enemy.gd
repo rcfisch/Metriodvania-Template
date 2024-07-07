@@ -20,7 +20,7 @@ func _physics_process(delta):
 		alert(true)
 	if $Killbox.has_overlapping_areas():
 		for i in $Killbox.get_overlapping_areas():
-			i.get_script().hurt(global_position, velocity)
+			hit_player()
 	
 func alert(alert_others):
 	if !can_be_alerted:
@@ -32,8 +32,9 @@ func alert(alert_others):
 		if abs(gm.enemy_list[i].global_position.x - global_position.x) + abs(gm.enemy_list[i].global_position.y - global_position.y) < alert_distance:
 			pass
 			#gm.enemy_list[i].get_script().alert(false)
-func player_hit():
-	pass
+func hit_player():
+	print("hit player")
+	Player.hurt(global_position, velocity, damage_dealt)
 func take_damage(damage):
 	health -= damage
 	if health <= 0:

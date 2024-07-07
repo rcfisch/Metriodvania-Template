@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Player
 
+static var instance : Player
+
 var camera = load("res://Scripts/Camera.gd").new()
 # Acceleration and speed cap
 @export_category("Speeds")
@@ -64,6 +66,9 @@ var attacking = false
 var attack_timer = 0
 
 const gm = preload("res://Scripts/game_manager.gd")
+
+func _ready():
+	instance = self
 
 func _process(_delta):
 	if health == 0:
@@ -238,19 +243,19 @@ func debug_menu():
 		get_tree().set_debug_collisions_hint(true)
 	else:
 		get_tree().set_debug_collisions_hint(false)
-func hurt(enemy_pos, enemy_vel):
-	if inv_timer != 0:
+static func hurt(enemy_pos, enemy_vel, damage):
+	if instance.inv_timer != 0:
 		return
-	health -= 1
-	mCamera.instance.apply_shake()
-	if health != 0:
-		freeze_frame(0.1, 0.4)
-	var knockback = enemy_pos.direction_to(global_position) * enemy_knockback
+	instance.health -= damage
+	mCamera.apply_shake()
+	if instance.health != 0:
+		instance.freeze_frame(0.1, 0.4)
+	var knockback = instance.enemy_pos.direction_to(instance.global_position) * instance.enemy_knockback
 	if knockback.x == 0:
-		velocity = Vector2(knockback.x + 100, -abs(knockback.y))
+		instance.velocity = Vector2(instance.knockback.x + 100, -abs(instance.knockback.y))
 	else:
-		velocity = Vector2(knockback.x, -abs(knockback.y))
-	inv_timer = invicibility_frames
+		instance.velocity = Vector2(instance.knockback.x, -abs(instance.knockback.y))
+	instance.inv_timer = instance.invicibility_frames
 
 func freeze_frame(timescale, duration):
 	Engine.time_scale = timescale

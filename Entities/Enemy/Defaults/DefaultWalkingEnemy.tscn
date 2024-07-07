@@ -17,7 +17,7 @@ attack_jump_distance = 250
 can_be_alerted = true
 alert_distance = 400.0
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -65)
 texture = ExtResource("2_yk7rk")
 
@@ -36,12 +36,12 @@ shape = SubResource("RectangleShape2D_xfiav")
 
 [node name="Raycasts" type="Node2D" parent="."]
 
-[node name="Wallcast2D" type="RayCast2D" parent="Raycasts"]
+[node name="Wallcast" type="RayCast2D" parent="Raycasts"]
 position = Vector2(64, -12)
 target_position = Vector2(4, 0)
 collision_mask = 4
 
-[node name="Floorcast2D" type="RayCast2D" parent="Raycasts"]
+[node name="Floorcast" type="RayCast2D" parent="Raycasts"]
 position = Vector2(60, 0)
 target_position = Vector2(0, 4)
 collision_mask = 4

@@ -31,10 +31,10 @@ func _physics_process(delta):
 		velocity.y += get_gravity() * delta
 	
 	if velocity.x > 0:
-		$Sprite.flip_h = true
+		$Sprite2D.flip_h = true
 		
 	if velocity.x < 0:
-		$Sprite.flip_h = false
+		$Sprite2D.flip_h = false
 
 	if alerted:
 		dir_to_player = clamp(gm.player_pos.x - global_position.x, -1, 1) 
@@ -42,9 +42,6 @@ func _physics_process(delta):
 		move_toward_player()
 		if is_on_floor() and check_for_obsticles():
 			jump()
-		if is_on_floor() and dis_to_player < attack_jump_distance and abs(gm.player_vel.x) < 20:
-			if dis_to_player > attack_jump_distance - 20:
-				jump()
 	elif is_patrolling and is_on_floor():
 		if check_for_obsticles():
 			dir = dir * -1
@@ -69,9 +66,9 @@ func move_toward_player():
 			velocity.x = max(velocity.x - accel, -speed)
 	
 func check_for_obsticles() -> bool:
-	if $Raycasts/Wallcast2D.is_colliding():
+	if $Raycasts/Wallcast.is_colliding():
 		return true
-	elif !$Raycasts/Floorcast2D.is_colliding():
+	elif !$Raycasts/Floorcast.is_colliding():
 		if is_on_floor():
 			return true
 		else: 
