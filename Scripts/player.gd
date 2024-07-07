@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 var camera = load("res://Scripts/Camera.gd").new()
 # Acceleration and speed cap
