@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://s13k54c5atdq" path="res://World/red_bricks.tscn" id="1_hgmn6"]
 [ext_resource type="PackedScene" uid="uid://daw4l80sscsb7" path="res://Entities/Player/player.tscn" id="2_84dbn"]
 [ext_resource type="PackedScene" uid="uid://dwev8162py38d" path="res://Entities/Misc/BounceOrb.tscn" id="3_roh54"]
-[ext_resource type="PackedScene" uid="uid://cbnp8qi26wjta" path="res://Entities/Enemy/sm_cardboard_enemy.tscn" id="4_4ylfm"]
 [ext_resource type="PackedScene" uid="uid://bcr58x6wplipv" path="res://Entities/Player/camera.tscn" id="5_iferf"]
+[ext_resource type="PackedScene" uid="uid://dtil0of05qlwp" path="res://Entities/Enemy/Defaults/DefaultWalkingEnemy.tscn" id="5_p2ne1"]
 
 [node name="World" type="Node2D"]
 
@@ -17,10 +17,10 @@ position = Vector2(404, -20)
 [node name="BounceOrb2" parent="." instance=ExtResource("3_roh54")]
 position = Vector2(604, -56)
 
-[node name="sm_cardboard_enemy" parent="." instance=ExtResource("4_4ylfm")]
-position = Vector2(-684, 416)
-
 [node name="Player" parent="." instance=ExtResource("2_84dbn")]
 
 [node name="Camera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("5_iferf")]
 follow_target = NodePath("../Player")
+
+[node name="DefaultWalkingEnemy" parent="." instance=ExtResource("5_p2ne1")]
+position = Vector2(-480, 416)
