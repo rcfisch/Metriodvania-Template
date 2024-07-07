@@ -151,6 +151,11 @@ func accelerate():
 		# Left
 		if direction == -1:
 			rv.x = max(rv.x - accel, -speed)
+		if velocity.x < speed:
+			rv.x = velocity.x
+		if abs(rv.x) < speed:
+			velocity.x += accel * direction
+
 	else:
 # Air Acceleration
 		# Right
@@ -159,6 +164,11 @@ func accelerate():
 		# Left
 		if direction == -1:
 			rv.x = max(rv.x - air_accel, -speed)
+			
+		if velocity.x < speed:
+			rv.x = velocity.x
+		if abs(rv.x) < speed:
+			velocity.x += air_accel * direction
 func get_gravity() -> float:
 # Return correct gravity for the situation
 	if velocity.y < 0:

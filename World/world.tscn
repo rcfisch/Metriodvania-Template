@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://daw4l80sscsb7" path="res://Entities/Player/player.tscn" id="2_84dbn"]
 [ext_resource type="PackedScene" uid="uid://dwev8162py38d" path="res://Entities/Misc/BounceOrb.tscn" id="3_roh54"]
 [ext_resource type="PackedScene" uid="uid://bcr58x6wplipv" path="res://Entities/Player/camera.tscn" id="5_iferf"]
-[ext_resource type="PackedScene" uid="uid://dtil0of05qlwp" path="res://Entities/Enemy/Defaults/DefaultWalkingEnemy.tscn" id="5_p2ne1"]
 
 [node name="World" type="Node2D"]
 
@@ -21,6 +20,3 @@ position = Vector2(604, -56)
 
 [node name="Camera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("5_iferf")]
 follow_target = NodePath("../Player")
-
-[node name="DefaultWalkingEnemy" parent="." instance=ExtResource("5_p2ne1")]
-position = Vector2(-480, 416)
