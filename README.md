@@ -18,4 +18,9 @@ Programming Design:
 Snake Case
 gdscript
 
-
+COLLISION LAYERS:
+	Player and tiles = 1
+	Player attack (anything pogoable) = 2
+	Floor tiles (anything that collides with the floor but not the player, so most entities) = 3
+	Player Hurtbox (anything that hurts the player) = 4
+	Player Hitbox (I dont remember why we did this) = 5

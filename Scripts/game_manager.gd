@@ -8,3 +8,5 @@ static var player_vel : Vector2
 
 static var player_health : int
 
+static var stored_vel : Vector2
+

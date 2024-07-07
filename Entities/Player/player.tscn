@@ -114,3 +114,13 @@ collision_mask = 8
 
 [node name="HurtboxCollider" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_q34wj")
+
+[node name="Raycasts" type="Node2D" parent="."]
+
+[node name="Y" type="RayCast2D" parent="Raycasts"]
+position = Vector2(0, 16)
+target_position = Vector2(0, 8)
+
+[node name="X" type="RayCast2D" parent="Raycasts"]
+position = Vector2(5, 5)
+target_position = Vector2(8, 0)

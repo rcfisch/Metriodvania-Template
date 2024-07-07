@@ -24,6 +24,7 @@ var max_fall_speed = 880
 
 func _physics_process(delta):
 	
+	
 	dis_to_player = abs(global_position.x - gm.player_pos.x)
 	
 	if velocity.y < max_fall_speed:

@@ -6,8 +6,8 @@ const gm = preload("res://Scripts/game_manager.gd")
 @export var can_be_alerted : bool
 @export var alert_distance : float
 
-@export var max_health : int
-@export var damage_dealt : int
+@export var max_health : int = 5
+@export var damage_dealt : int = 1
 
 @onready var health : int = max_health
 var alerted = false
@@ -15,7 +15,7 @@ var alerted = false
 func _ready():
 	gm.enemy_list.append(self)
 	
-func _process(_delta):
+func _physics_process(delta):
 	if !alerted and abs(gm.player_pos.x - global_position.x) + abs(gm.player_pos.y - global_position.y) < alert_distance:
 		alert(true)
 	if $Killbox.has_overlapping_areas():
@@ -38,11 +38,11 @@ func take_damage(damage):
 	health -= damage
 	if health <= 0:
 		on_death()
-		destory()
+		destroy()
 	
 func on_death():
 	pass
 	
-func destory():
+func destroy():
 	gm.enemy_list.erase(self)
 	self.queue_free()

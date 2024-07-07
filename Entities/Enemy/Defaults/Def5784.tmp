@@ -10,14 +10,9 @@ size = Vector2(120, 124)
 size = Vector2(128, 128)
 
 [node name="DefaultWalkingEnemy" type="CharacterBody2D"]
-collision_layer = 6
-collision_mask = 4
 script = ExtResource("1_bjpov")
-attack_jump_distance = 250
-can_be_alerted = true
-alert_distance = 400.0
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -65)
 texture = ExtResource("2_yk7rk")
 
@@ -34,14 +29,11 @@ debug_color = Color(1, 0, 0, 0.0980392)
 position = Vector2(0, -64)
 shape = SubResource("RectangleShape2D_xfiav")
 
-[node name="Raycasts" type="Node2D" parent="."]
-
-[node name="Wallcast2D" type="RayCast2D" parent="Raycasts"]
+[node name="Wallcast2D" type="RayCast2D" parent="."]
 position = Vector2(64, -12)
 target_position = Vector2(4, 0)
-collision_mask = 4
 
-[node name="Floorcast2D" type="RayCast2D" parent="Raycasts"]
+[node name="Floorcast2D" type="RayCast2D" parent="."]
 position = Vector2(60, 0)
 target_position = Vector2(0, 4)
 collision_mask = 4

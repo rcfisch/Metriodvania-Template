@@ -46,6 +46,8 @@ var inv_timer = 0
 const max_health : int = 5
 @onready var health : int = max_health
 
+# Launching
+var launching = true
 
 # Debug
 var debug_enabled = false
@@ -122,6 +124,9 @@ func _physics_process(delta):
 		$Sprite.flip_h = true
 	else:
 		$Sprite.flip_h = false
+		
+	if is_on_floor():
+		launching = false
 	
 	accelerate()
 # Friction
@@ -246,7 +251,6 @@ func hurt(enemy_pos, enemy_vel):
 		velocity = Vector2(knockback.x, -abs(knockback.y))
 	inv_timer = invicibility_frames
 
-
 func freeze_frame(timescale, duration):
 	Engine.time_scale = timescale
 	await(get_tree().create_timer(duration * timescale).timeout)
@@ -260,3 +264,13 @@ func kill():
 	await(get_tree().create_timer(0.1).timeout)
 	position = Vector2.ZERO
 	velocity = Vector2.ZERO
+	
+func launch_checks():
+	launching = true
+	$Raycasts/X.scale.x = direction
+	$Raycasts/Y.scale.y = y_direction
+	
+	#velocity.x = 
+
+func store_velocity():
+	gm.stored_vel = velocity
