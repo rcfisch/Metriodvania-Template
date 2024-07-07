@@ -129,13 +129,6 @@ func _physics_process(delta):
 	if abs(velocity.x) < friction and direction == 0 and !attacking:
 		velocity.x = 0
 	move_and_slide()
-	
-# Hurt Player
-	if $Hurtbox.has_overlapping_areas():
-		for i in $Hurtbox.get_overlapping_areas():
-			if inv_timer == 0:
-				hurt(i.global_position)
-		
 		
 # Print
 	#print(get_gravity())
@@ -239,7 +232,9 @@ func debug_menu():
 		get_tree().set_debug_collisions_hint(true)
 	else:
 		get_tree().set_debug_collisions_hint(false)
-func hurt(enemy_pos):
+func hurt(enemy_pos, enemy_vel):
+	if inv_timer != 0:
+		return
 	health -= 1
 	mCamera.instance.apply_shake()
 	if health != 0:

@@ -18,8 +18,9 @@ func _ready():
 func _process(_delta):
 	if !alerted and abs(gm.player_pos.x - global_position.x) + abs(gm.player_pos.y - global_position.y) < alert_distance:
 		alert(true)
-	if $Killbox.get_overlapping_areas()
-		pass
+	if $Killbox.has_overlapping_areas():
+		for i in $Killbox.get_overlapping_areas():
+			i.get_script().hurt(global_position, velocity)
 	
 func alert(alert_others):
 	if !can_be_alerted:
