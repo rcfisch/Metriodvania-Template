@@ -125,7 +125,7 @@ func _physics_process(delta):
 		for i in $Hurtbox.get_overlapping_areas():
 			if inv_timer == 0:
 				hurt(i.global_position)
-			
+		
 		
 # Print
 	#print(get_gravity())
@@ -228,11 +228,13 @@ func debug_menu():
 	else:
 		get_tree().set_debug_collisions_hint(false)
 func hurt(enemy_pos):
-	camera.apply_shake()
-	freeze_frame(0.1, 0.2)
+	mCamera.instance.apply_shake()
+	freeze_frame(0.1, 0.4)
 	var knockback = enemy_pos.direction_to(global_position) * enemy_knockback
-	
-	velocity = Vector2(knockback.x, -abs(knockback.y))
+	if knockback.x == 0:
+		velocity = Vector2(knockback.x + 100, -abs(knockback.y))
+	else:
+		velocity = Vector2(knockback.x, -abs(knockback.y))
 	inv_timer = invicibility_frames
 	#print(knockback_dir * enemy_knockback)
 

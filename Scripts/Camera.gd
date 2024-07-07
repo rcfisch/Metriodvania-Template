@@ -2,10 +2,7 @@ extends Camera2D
 class_name mCamera
 
 static var instance : mCamera
-
-@export var random_strength : float = 30
-@export var shake_fade : float = 5
-
+var shake_fade : float
 var rng = RandomNumberGenerator.new()
 
 var shake_strength : float = 0
@@ -13,13 +10,14 @@ var shake_strength : float = 0
 func _ready():
 	instance = self
 
-static func apply_shake():
-	instance.shake_strength = instance.random_strength
+static func apply_shake(strength = 5, fade = 3):
+	instance.shake_strength = strength
+	instance.shake_fade = fade
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("debug"):
-		apply_shake()
+		apply_shake(30)
 	if shake_strength > 0:
 		shake_strength = lerpf(shake_strength,0,shake_fade * delta)
 	offset = random_offset()

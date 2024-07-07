@@ -61,11 +61,12 @@ func move_on_patrol():
 		velocity = Vector2(speed * dir, velocity.y)
 func move_toward_player():
 	if is_on_floor():
-		if abs(velocity.x) < speed:
-			velocity.x += accel * dir_to_player
-	else: 
-		if abs(velocity.x) < speed:
-			velocity.x += (8 * dir_to_player)
+		# Right
+		if dir_to_player == 1:
+			velocity.x = min(velocity.x + accel, speed)
+		# Left
+		if dir_to_player == -1:
+			velocity.x = max(velocity.x - accel, -speed)
 	
 func check_for_obsticles() -> bool:
 	if $Raycasts/Wallcast2D.is_colliding():
