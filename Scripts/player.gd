@@ -50,6 +50,8 @@ const max_health : int = 5
 @onready var health : int = max_health
 
 # Launching
+@export var launch_force : float = 800
+@export var launch_boost : float = 200
 var launching = true
 
 # Debug
@@ -57,6 +59,7 @@ var debug_enabled = false
 
 # Misc
 var facing = "right"
+var facing_dir : int = 1
 
 
 var is_jumping = false
@@ -140,6 +143,13 @@ func _physics_process(delta):
 	if abs(velocity.x) < friction and direction == 0 and !attacking:
 		velocity.x = 0
 	move_and_slide()
+	
+	
+# Launch
+	if Input.is_action_just_pressed("launch") and launch_checks():
+		launch()
+		print("launch")
+	
 		
 # Print
 	#print(get_gravity())
@@ -151,7 +161,7 @@ func accelerate():
 		# Left
 		if direction == -1:
 			rv.x = max(rv.x - accel, -speed)
-		if velocity.x < speed:
+		if abs(velocity.x) < speed:
 			rv.x = velocity.x
 		if abs(rv.x) < speed:
 			velocity.x += accel * direction
@@ -165,7 +175,7 @@ func accelerate():
 		if direction == -1:
 			rv.x = max(rv.x - air_accel, -speed)
 			
-		if velocity.x < speed:
+		if abs(velocity.x) < speed:
 			rv.x = velocity.x
 		if abs(rv.x) < speed:
 			velocity.x += air_accel * direction
@@ -195,6 +205,23 @@ func apply_friction():
 			velocity.x -= recoil_friction
 		if velocity.x < 0:
 			velocity.x += recoil_friction
+			
+	
+	if is_on_floor() and direction == 0 and attack_timer == 0:
+		if rv.x > 0:
+			rv.x -= friction
+		if rv.x < 0:
+			rv.x += friction
+	elif direction == 0 and !is_on_floor():
+		if rv.x > 0:
+			rv.x -= air_friction
+		if rv.x < 0:
+			rv.x += air_friction
+	elif attack_timer > 0 and is_on_floor() and direction == 0:
+		if rv.x > 0:
+			rv.x -= recoil_friction
+		if rv.x < 0:
+			rv.x += recoil_friction
 func jump():
 	if coyote_time > 0:
 		velocity.y = jump_velocity
@@ -281,12 +308,28 @@ func kill():
 	position = Vector2.ZERO
 	velocity = Vector2.ZERO
 	
-func launch_checks():
+func launch_checks() -> bool:
+	$Raycasts/X.scale.x = -direction
+	$Raycasts/Y.scale.y = -y_direction
+	if $Raycasts/X.is_colliding() or $Raycasts/Y.is_colliding():
+		if launching == false:
+			return true
+		else:
+			return false
+	else:
+		return false
 	launching = true
-	$Raycasts/X.scale.x = direction
-	$Raycasts/Y.scale.y = y_direction
 	
 	#velocity.x = 
+func launch():
+	if $Raycasts/X.is_colliding():
+		velocity.x = launch_force *  direction
+	if $Raycasts/Y.is_colliding():
+		velocity.y = launch_force * y_direction
+	mCamera.instance.apply_shake()
+	freeze_frame(0.05, 0.2)
+	await(get_tree().create_timer(0.2).timeout)
+	velocity += Vector2(launch_boost * direction, launch_boost * y_direction)
 
 func store_velocity():
 	gm.stored_vel = velocity
