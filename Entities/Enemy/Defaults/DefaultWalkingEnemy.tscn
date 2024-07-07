@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtil0of05qlwp"]
+
+[ext_resource type="Script" path="res://Scripts/WalkingEnemy.gd" id="1_bjpov"]
+[ext_resource type="Texture2D" uid="uid://b8w5l8drgsg8d" path="res://icon.png" id="2_yk7rk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ja0et"]
+size = Vector2(147, 140)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xfiav"]
+size = Vector2(128, 128)
+
+[node name="DefaultWalkingEnemy" type="CharacterBody2D"]
+script = ExtResource("1_bjpov")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -65)
+texture = ExtResource("2_yk7rk")
+
+[node name="Killbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="KillboxCollider" type="CollisionShape2D" parent="Killbox"]
+position = Vector2(0, -70)
+shape = SubResource("RectangleShape2D_ja0et")
+debug_color = Color(1, 0, 0, 0.0980392)
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -64)
+shape = SubResource("RectangleShape2D_xfiav")
