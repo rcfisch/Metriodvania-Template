@@ -41,6 +41,11 @@ var recoiled = false
 # Player Damage
 @export var invicibility_frames : int
 var inv_timer = 0
+
+const max_health : int = 5
+@onready var health : int = max_health
+
+
 # Debug
 var debug_enabled = false
 
@@ -57,6 +62,10 @@ var attack_timer = 0
 const gm = preload("res://Scripts/game_manager.gd")
 
 func _process(_delta):
+	if health == 0:
+		kill()
+	
+	gm.player_health = health
 	if inv_timer > 0:
 		inv_timer -= 1
 	if attack_timer > 0:
@@ -222,23 +231,36 @@ func get_facing() -> String:
 	else:
 		return facing
 func debug_menu():
+	print(health)
+	print(gm.player_health)
 	debug_enabled = !debug_enabled
 	if debug_enabled:
 		get_tree().set_debug_collisions_hint(true)
 	else:
 		get_tree().set_debug_collisions_hint(false)
 func hurt(enemy_pos):
+	health -= 1
 	mCamera.instance.apply_shake()
-	freeze_frame(0.1, 0.4)
+	if health != 0:
+		freeze_frame(0.1, 0.4)
 	var knockback = enemy_pos.direction_to(global_position) * enemy_knockback
 	if knockback.x == 0:
 		velocity = Vector2(knockback.x + 100, -abs(knockback.y))
 	else:
 		velocity = Vector2(knockback.x, -abs(knockback.y))
 	inv_timer = invicibility_frames
-	#print(knockback_dir * enemy_knockback)
+
 
 func freeze_frame(timescale, duration):
 	Engine.time_scale = timescale
 	await(get_tree().create_timer(duration * timescale).timeout)
 	Engine.time_scale = 1.0
+
+func kill():
+	
+	mCamera.instance.apply_shake(10,3)
+	freeze_frame(0.1, 1.0)
+	health = max_health
+	await(get_tree().create_timer(0.1).timeout)
+	position = Vector2.ZERO
+	velocity = Vector2.ZERO

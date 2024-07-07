@@ -1,0 +1,115 @@
+[gd_scene load_steps=14 format=3 uid="uid://daw4l80sscsb7"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_libco"]
+[ext_resource type="Texture2D" uid="uid://ce17jxpspyhy1" path="res://Assets/Sprites/Player/Static/Template.png" id="1_lp7hn"]
+[ext_resource type="Texture2D" uid="uid://btcjxqyana8cm" path="res://Assets/Sprites/Player/Animations/TemplateAttack.png" id="3_5fqoh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e131h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fla5k"]
+size = Vector2(10, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohrhg"]
+size = Vector2(30.5, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpmb8"]
+atlas = ExtResource("3_5fqoh")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luy7v"]
+atlas = ExtResource("3_5fqoh")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_diups"]
+atlas = ExtResource("3_5fqoh")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbkaw"]
+atlas = ExtResource("3_5fqoh")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3qgfc"]
+atlas = ExtResource("3_5fqoh")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bnbsd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpmb8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_luy7v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_diups")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbkaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3qgfc")
+}],
+"loop": true,
+"name": &"X",
+"speed": 11.5
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q34wj"]
+size = Vector2(10, 21)
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 1
+material = SubResource("ShaderMaterial_e131h")
+scale = Vector2(4, 4)
+script = ExtResource("1_libco")
+accel = 120.0
+air_accel = 32.0
+speed = 440.0
+max_fall_speed = 880.0
+jump_height = 160.0
+jump_seconds_to_peak = 0.42
+jump_seconds_to_descent = 0.38
+variable_jump_gravity_multiplier = 2.0
+coyote_frames = 8.0
+friction = 160
+air_friction = 32.0
+recoil_friction = 48.0
+attack_time = 4
+attack_recoil = 200.0
+pogo_velocity = 920.0
+enemy_knockback = 800.0
+invicibility_frames = 60
+
+[node name="PlayerHitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5.5)
+shape = SubResource("RectangleShape2D_fla5k")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_lp7hn")
+
+[node name="AttackArea" type="Area2D" parent="."]
+position = Vector2(8, 5)
+collision_layer = 2
+collision_mask = 2
+
+[node name="AttackHitbox" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(2.25, 0)
+shape = SubResource("RectangleShape2D_ohrhg")
+disabled = true
+debug_color = Color(0.984314, 0, 0, 0.419608)
+
+[node name="AttackSprite" type="AnimatedSprite2D" parent="AttackArea"]
+position = Vector2(0, 0.75)
+sprite_frames = SubResource("SpriteFrames_bnbsd")
+animation = &"X"
+frame_progress = 0.837806
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, 5.5)
+collision_layer = 0
+collision_mask = 8
+
+[node name="HurtboxCollider" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_q34wj")

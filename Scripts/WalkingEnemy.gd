@@ -51,7 +51,6 @@ func _physics_process(delta):
 		move_on_patrol()
 	move_and_slide()
 
-	print(dir)
 func jump():
 	if is_on_floor():
 		velocity.y = jump_velocity
