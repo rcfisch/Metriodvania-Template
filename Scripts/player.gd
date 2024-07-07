@@ -260,11 +260,11 @@ static func hurt(enemy_pos, enemy_vel, damage):
 	mCamera.apply_shake()
 	if instance.health != 0:
 		instance.freeze_frame(0.1, 0.4)
-	var knockback = instance.enemy_pos.direction_to(instance.global_position) * instance.enemy_knockback
+	var knockback = enemy_pos.direction_to(instance.global_position) * instance.enemy_knockback
 	if knockback.x == 0:
-		instance.velocity = Vector2(instance.knockback.x + 100, -abs(instance.knockback.y))
+		instance.velocity = Vector2(knockback.x + 100, -abs(knockback.y))
 	else:
-		instance.velocity = Vector2(instance.knockback.x, -abs(instance.knockback.y))
+		instance.velocity = Vector2(knockback.x, -abs(knockback.y))
 	instance.inv_timer = instance.invicibility_frames
 
 func freeze_frame(timescale, duration):
@@ -274,7 +274,7 @@ func freeze_frame(timescale, duration):
 
 func kill():
 	
-	mCamera.instance.apply_shake(10,3)
+	mCamera.apply_shake(10,3)
 	freeze_frame(0.1, 1.0)
 	health = max_health
 	await(get_tree().create_timer(0.1).timeout)

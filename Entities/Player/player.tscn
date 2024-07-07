@@ -109,8 +109,8 @@ frame_progress = 0.837806
 
 [node name="Hurtbox" type="Area2D" parent="."]
 position = Vector2(0, 5.5)
-collision_layer = 0
-collision_mask = 8
+collision_layer = 8
+collision_mask = 0
 
 [node name="HurtboxCollider" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_q34wj")

@@ -15,10 +15,11 @@ var alerted = false
 func _ready():
 	gm.enemy_list.append(self)
 	
-func _physics_process(delta):
+func _process(delta):
 	if !alerted and abs(gm.player_pos.x - global_position.x) + abs(gm.player_pos.y - global_position.y) < alert_distance:
 		alert(true)
 	if $Killbox.has_overlapping_areas():
+		print("has overlapo")
 		for i in $Killbox.get_overlapping_areas():
 			hit_player()
 	
